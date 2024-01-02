@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_plantapplication/constants.dart';
-
-//import 'screens/signin_page.dart';
+import 'package:flutter_plantapplication/screens/signin_page.dart';
+import 'package:flutter_plantapplication/screens/welcome_page.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({Key? key}) : super(key: key);
@@ -21,20 +21,31 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Colors.white,
+        leading: currentIndex > 0
+      ? IconButton(
+          onPressed: () {
+            _pageController.previousPage(
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeOut);
+          },
+          icon: const Icon(Icons.arrow_back),
+          color: Constants.primaryColor,
+        )
+      : null,
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 20, top: 20),
             child: InkWell(
               onTap: () {
-                //Navigator.pushReplacement(
-                  //  context, MaterialPageRoute(builder: (_) => const SignIn()));
+                Navigator.pushReplacement(
+                    context, MaterialPageRoute(builder: (_) => const WelcomePage()));
               }, //to login screen. We will update later
               child: const Text(
                 'Skip',
                 style: TextStyle(
-                  color: Colors.grey,
+                  color: const Color(0xff296e48),
                   fontSize: 16.0,
-                  fontWeight: FontWeight.w400,
+                  fontWeight: FontWeight.w800,
                 ),
               ),
             ),
@@ -53,7 +64,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             controller: _pageController,
             children: [
               createPage(
-                
+                image: 'assets/images/page1.jpeg',
+                title: Constants.titleOne,
+                description: Constants.descriptionOne,
+              ),
+              createPage(
+                image: 'assets/images/page2.jpeg',
+                title: Constants.titleTwo,
+                description: Constants.descriptionTwo,
               ),
             ],
           ),
@@ -71,16 +89,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               child: IconButton(
                   onPressed: () {
                     setState(() {
-                      if (currentIndex < 2) {
+                      if (currentIndex < 1) {
                         currentIndex++;
-                        if (currentIndex < 3) {
+                        if (currentIndex < 2) {
                           _pageController.nextPage(
                               duration: const Duration(milliseconds: 300),
                               curve: Curves.easeIn);
                         }
                       } else {
-                        //Navigator.pushReplacement(context,
-                          //  MaterialPageRoute(builder: (_) => const SignIn()));
+                       
+                        Navigator.pushReplacement(context,
+                           MaterialPageRoute(builder: (_) => const SignIn()));
                       }
                     });
                   },
@@ -121,7 +140,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   List<Widget> _buildIndicator() {
     List<Widget> indicators = [];
 
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 2; i++) {
       if (currentIndex == i) {
         indicators.add(_indicator(true));
       } else {
@@ -134,48 +153,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 }
 
 class createPage extends StatelessWidget {
-  const createPage({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.only(left: 50, right: 50, bottom: 80),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(height: 350, child: Image.asset('assets/images/plant-1.png'),),
-          const SizedBox(height: 20,),
-          Text(Constants.titleOne,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: Constants.primaryColor,
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
-          ),
-          ),
-          
-          const SizedBox(height: 20,),
-          Text(Constants.descriptionOne,
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w400,
-            color: Colors.grey,
-            
-          ),
-          )
-          
-          
-          
-          ],
-      ),
-    );
-  }
-}
-
-/*class createPage extends StatelessWidget {
   final String image;
   final String title;
   final String description;
@@ -196,7 +173,13 @@ class createPage extends StatelessWidget {
         children: [
           SizedBox(
             height: 350,
-            child: Image.asset(image),
+            child: ClipRRect(
+        borderRadius: BorderRadius.circular(20.0),
+        child: Image.asset(
+          image,
+          fit: BoxFit.cover,
+        ),
+      ),
           ),
           const SizedBox(
             height: 20,
@@ -228,5 +211,5 @@ class createPage extends StatelessWidget {
         ],
       ),
     );
-  } 
-}*/
+  }
+}
