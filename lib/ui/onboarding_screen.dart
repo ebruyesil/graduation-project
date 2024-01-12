@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_plantapplication/constants.dart';
-import 'package:flutter_plantapplication/screens/signin_page.dart';
-import 'package:flutter_plantapplication/screens/welcome_page.dart';
+import 'package:flutter_plantapplication/screens/first_page.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({Key? key}) : super(key: key);
@@ -17,10 +16,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Constants.whiteColor,
       appBar: AppBar(
         elevation: 0.0,
-        backgroundColor: Colors.white,
+        backgroundColor: Constants.whiteColor,
         leading: currentIndex > 0
       ? IconButton(
           onPressed: () {
@@ -29,7 +28,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 curve: Curves.easeOut);
           },
           icon: const Icon(Icons.arrow_back),
-          color: Constants.primaryColor,
+          color: Constants.greenColor,
         )
       : null,
         actions: [
@@ -38,12 +37,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             child: InkWell(
               onTap: () {
                 Navigator.pushReplacement(
-                    context, MaterialPageRoute(builder: (_) => const WelcomePage()));
-              }, //to login screen. We will update later
+                    context, MaterialPageRoute(builder: (_) =>  FirstPage()));
+              }, 
               child: const Text(
                 'Skip',
                 style: TextStyle(
-                  color: const Color(0xff296e48),
+                  color: Constants.greenColor,
                   fontSize: 16.0,
                   fontWeight: FontWeight.w800,
                 ),
@@ -62,7 +61,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               });
             },
             controller: _pageController,
-            children: [
+            children: const [
               createPage(
                 image: 'assets/images/page1.jpeg',
                 title: Constants.titleOne,
@@ -86,6 +85,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             bottom: 60,
             right: 30,
             child: Container(
+              padding: const EdgeInsets.all(4),
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: Constants.greenColor,
+              ),
               child: IconButton(
                   onPressed: () {
                     setState(() {
@@ -99,20 +103,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       } else {
                        
                         Navigator.pushReplacement(context,
-                           MaterialPageRoute(builder: (_) => const SignIn()));
+                           MaterialPageRoute(builder: (_) => FirstPage()));
                       }
                     });
                   },
                   icon: const Icon(
                     Icons.arrow_forward_ios,
                     size: 24,
-                    color: Colors.white,
+                    color: Constants.whiteColor,
                   )),
-              padding: const EdgeInsets.all(4),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Constants.primaryColor,
-              ),
             ),
           ),
         ],
@@ -121,8 +120,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   //Extra Widgets
-
-  //Create the indicator decorations widget
   Widget _indicator(bool isActive) {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
@@ -130,7 +127,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       width: isActive ? 20 : 8,
       margin: const EdgeInsets.only(right: 5.0),
       decoration: BoxDecoration(
-        color: Constants.primaryColor,
+        color: Constants.greenColor,
         borderRadius: BorderRadius.circular(5),
       ),
     );
@@ -152,6 +149,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 }
 
+// ignore: camel_case_types
 class createPage extends StatelessWidget {
   final String image;
   final String title;
@@ -187,8 +185,8 @@ class createPage extends StatelessWidget {
           Text(
             title,
             textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Constants.primaryColor,
+            style: const TextStyle(
+              color: Constants.greenColor,
               fontSize: 30,
               fontWeight: FontWeight.bold,
             ),
@@ -202,7 +200,7 @@ class createPage extends StatelessWidget {
             style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w400,
-              color: Colors.grey,
+              color: Constants.greyColor,
             ),
           ),
           const SizedBox(
