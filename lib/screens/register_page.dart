@@ -18,6 +18,7 @@ class RegisterPage extends StatelessWidget {
         elevation: 0,
       ),
       body: SingleChildScrollView(
+        
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
